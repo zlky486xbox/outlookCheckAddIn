@@ -59,11 +59,11 @@ namespace CheckAddIn
             int x = address.IndexOf("@", 0);
             x ++;
             string temp = address.Substring(x, address.Length - x);
-            if (temp.Contains("mcz.mitsui-chem.com"))
+            if (temp.Contains(" "))
             {
                 result = true;
             }
-            else if (temp.Contains("mitsuichemicals.com"))
+            else if (temp.Contains(""))
             {
                 result = true;
             }
