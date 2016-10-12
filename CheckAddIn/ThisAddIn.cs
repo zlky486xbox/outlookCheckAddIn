@@ -1,13 +1,19 @@
 ﻿using Outlook = Microsoft.Office.Interop.Outlook;
 using System.Windows.Forms;
+using System.Collections.Generic;
+using System.IO;
+using System.Xml;
 
 namespace CheckAddIn
 {
     public partial class ThisAddIn
     {
+        List<string> whitelist = new List<string>();
         private void ThisAddIn_Startup(object sender, System.EventArgs e)
         {
+            
             Application.ItemSend += new Outlook.ApplicationEvents_11_ItemSendEventHandler(Application_ItemSend);
+            Application.ItemLoad += new Outlook.ApplicationEvents_11_ItemLoadEventHandler(ProgramStart);
         }
 
         private void ThisAddIn_Shutdown(object sender, System.EventArgs e)
@@ -30,7 +36,8 @@ namespace CheckAddIn
 
         #endregion
         void Application_ItemSend(object item,ref bool Cancel)
-        {         
+        {
+            List<string> nowhitelist = new List<string>();
             Outlook.MailItem mail = item as Outlook.MailItem;             
             Outlook.Recipients recipients = mail.Recipients;
             if (mail!=null)
@@ -38,40 +45,80 @@ namespace CheckAddIn
                 foreach (Outlook.Recipient recipient in recipients)
                 {
                     string message = recipient.Address.ToString();
-                    if (checkEmailAdd(message)==false)
+                    if (checkEmailAdd_XML(message)==false)
                     {
-                        if(MessageBox.Show(""+message+"的邮箱地址非本社地址！是否继续发送？","Info",MessageBoxButtons.OKCancel,MessageBoxIcon.Question)==DialogResult.Cancel)
-                        {
-                          
-                            Cancel = true;
-                            mail.Display(item);
-                            
-                        }
+                        nowhitelist.Add(message);
+                      
                     }
+                }
+                if(nowhitelist.Count!=0)
+                {
+                    CheckForm cf = new CheckForm();
+                    cf.nowhitelist = nowhitelist;
+                    cf.ShowDialog();
                 }
                 
             }
         }
-
-        bool checkEmailAdd(string address)
+ 
+        bool checkEmailAdd_XML(string address)
         {
-            bool result;
+            bool result=false;
             int x = address.IndexOf("@", 0);
-            x ++;
+            x++;
             string temp = address.Substring(x, address.Length - x);
-            if (temp.Contains(" "))
+           foreach(string whiteadd in whitelist)
             {
-                result = true;
+                if(whiteadd==temp)
+                {
+                    result = true;
+                }
             }
-            else if (temp.Contains(""))
-            {
-                result = true;
-            }
-            else
-                result = false;
             return result;
+            
+            
         }
+        void ProgramStart(object item)
+        {
+            string filename = "D://WhiteXML.xml";
+            if (!File.Exists(filename))
+            {
+                XmlDocument doc = new XmlDocument();
+                XmlElement rootElement = doc.CreateElement("root");
+                doc.AppendChild(rootElement);
+                XmlNode xn = doc.SelectSingleNode("root");
+                XmlElement childElement = doc.CreateElement("WhiteList");
+                XmlElement URLElement = doc.CreateElement("URL");
+                URLElement.InnerText = "mcz.mitsui-chem.com";
+                childElement.AppendChild(URLElement);
+                rootElement.AppendChild(childElement);
+                doc.Save(filename);
+                XMLDAL.Insert("mitsuichemicals.com");
+            }
+            XmlDocument readxml = new XmlDocument();
+            readxml.Load(filename);
+            XmlElement xnn = readxml.DocumentElement;
+            ReadX(xnn);
+        }
+        void ReadX(XmlNode xnode)
+        {
+            foreach (XmlNode childNode in xnode.ChildNodes)
+            {
 
+                if (childNode.NodeType == XmlNodeType.Element)
+                {
+
+                    ReadX(childNode);
+                }
+                else if (childNode.NodeType == XmlNodeType.Text)
+                {
+                    if (childNode.ParentNode.Name == "URL")
+                    {
+                       whitelist.Add(childNode.Value);
+                    }
+                }
+            }
+        }
      
       
     }

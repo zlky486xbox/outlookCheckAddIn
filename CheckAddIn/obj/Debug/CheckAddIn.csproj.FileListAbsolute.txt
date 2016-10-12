@@ -9,8 +9,10 @@ D:\Devlop\CheckAddIn\CheckAddIn\bin\Debug\Microsoft.Office.Tools.Outlook.dll
 D:\Devlop\CheckAddIn\CheckAddIn\bin\Debug\Microsoft.Office.Tools.Outlook.v4.0.Utilities.dll
 D:\Devlop\CheckAddIn\CheckAddIn\bin\Debug\Microsoft.Office.Tools.v4.0.Framework.dll
 D:\Devlop\CheckAddIn\CheckAddIn\bin\Debug\Microsoft.VisualStudio.Tools.Applications.Runtime.dll
-D:\Devlop\CheckAddIn\CheckAddIn\obj\Debug\CheckAddIn.csprojResolveAssemblyReference.cache
+D:\Devlop\CheckAddIn\CheckAddIn\obj\Debug\CheckAddIn.CheckForm.resources
 D:\Devlop\CheckAddIn\CheckAddIn\obj\Debug\CheckAddIn.Properties.Resources.resources
+D:\Devlop\CheckAddIn\CheckAddIn\obj\Debug\CheckAddIn.RibbonList.resources
+D:\Devlop\CheckAddIn\CheckAddIn\obj\Debug\CheckAddIn.SettingForm.resources
 D:\Devlop\CheckAddIn\CheckAddIn\obj\Debug\CheckAddIn.csproj.GenerateResource.Cache
 D:\Devlop\CheckAddIn\CheckAddIn\obj\Debug\CheckAddIn.dll
 D:\Devlop\CheckAddIn\CheckAddIn\obj\Debug\CheckAddIn.pdb
