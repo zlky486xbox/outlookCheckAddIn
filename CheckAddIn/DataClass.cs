@@ -8,6 +8,7 @@ namespace CheckAddIn
 {
     class DataClass
     {
+  
         public List<string> WhiteList
         {
             get;

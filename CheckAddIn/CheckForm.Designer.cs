@@ -37,14 +37,14 @@
             // CLB_NoWhiteList
             // 
             this.CLB_NoWhiteList.FormattingEnabled = true;
-            this.CLB_NoWhiteList.Location = new System.Drawing.Point(12, 28);
+            this.CLB_NoWhiteList.Location = new System.Drawing.Point(12, 37);
             this.CLB_NoWhiteList.Name = "CLB_NoWhiteList";
             this.CLB_NoWhiteList.Size = new System.Drawing.Size(260, 180);
             this.CLB_NoWhiteList.TabIndex = 0;
             // 
             // BT_Send
             // 
-            this.BT_Send.Location = new System.Drawing.Point(15, 214);
+            this.BT_Send.Location = new System.Drawing.Point(15, 223);
             this.BT_Send.Name = "BT_Send";
             this.BT_Send.Size = new System.Drawing.Size(98, 36);
             this.BT_Send.TabIndex = 1;
@@ -63,7 +63,7 @@
             // 
             // BT_cancel
             // 
-            this.BT_cancel.Location = new System.Drawing.Point(174, 214);
+            this.BT_cancel.Location = new System.Drawing.Point(174, 223);
             this.BT_cancel.Name = "BT_cancel";
             this.BT_cancel.Size = new System.Drawing.Size(98, 36);
             this.BT_cancel.TabIndex = 3;
@@ -82,6 +82,7 @@
             this.Controls.Add(this.CLB_NoWhiteList);
             this.Name = "CheckForm";
             this.Text = "CheckForm";
+            this.Load += new System.EventHandler(this.CheckForm_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
 

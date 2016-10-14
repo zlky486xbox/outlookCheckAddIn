@@ -47,8 +47,7 @@ namespace CheckAddIn
                     string message = recipient.Address.ToString();
                     if (checkEmailAdd_XML(message)==false)
                     {
-                        nowhitelist.Add(message);
-                      
+                        nowhitelist.Add(message);                
                     }
                 }
                 if(nowhitelist.Count!=0)
@@ -56,8 +55,11 @@ namespace CheckAddIn
                     CheckForm cf = new CheckForm();
                     cf.nowhitelist = nowhitelist;
                     cf.ShowDialog();
-                }
-                
+                    if(cf.DialogResult==DialogResult.Cancel)
+                    {
+                        Cancel = true;
+                    }
+                }              
             }
         }
  
@@ -89,11 +91,11 @@ namespace CheckAddIn
                 XmlNode xn = doc.SelectSingleNode("root");
                 XmlElement childElement = doc.CreateElement("WhiteList");
                 XmlElement URLElement = doc.CreateElement("URL");
-                URLElement.InnerText = "mcz.mitsui-chem.com";
+                URLElement.InnerText = "xxx.com";
                 childElement.AppendChild(URLElement);
                 rootElement.AppendChild(childElement);
                 doc.Save(filename);
-                XMLDAL.Insert("mitsuichemicals.com");
+                XMLDAL.Insert("yyy.com");
             }
             XmlDocument readxml = new XmlDocument();
             readxml.Load(filename);

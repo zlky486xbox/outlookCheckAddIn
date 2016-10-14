@@ -1,22 +1,18 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace CheckAddIn
 {
     public partial class CheckForm : Form
     {
+      
         public List<string> nowhitelist = new List<string>();
         public CheckForm()
         {
             InitializeComponent();
         }
+       
         void loadCheckBox ()
         {
             foreach(string item in nowhitelist)
@@ -27,18 +23,34 @@ namespace CheckAddIn
 
         private void BT_Send_Click(object sender, EventArgs e)
         {
-            foreach(int item in CLB_NoWhiteList.CheckedIndices)
+            int item = 0;
+            for(int i = 0;i < CLB_NoWhiteList.Items.Count;i++)
             {
-                if(item!=CLB_NoWhiteList.Items.Count)
+                if (CLB_NoWhiteList.GetItemChecked(i))
                 {
-                    MessageBox.Show("");
+                    item++;
                 }
             }
+            if (item != CLB_NoWhiteList.Items.Count)
+            {
+                MessageBox.Show("全选后再点击发送！");
+            }
+            else
+            {
+                this.DialogResult = DialogResult.OK;
+                this.Close();
+            }       
         }
 
         private void BT_cancel_Click(object sender, EventArgs e)
         {
+            this.Close();
+            this.Dispose();
+        }
 
+        private void CheckForm_Load(object sender, EventArgs e)
+        {
+            loadCheckBox();
         }
     }
 }
