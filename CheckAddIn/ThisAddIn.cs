@@ -91,11 +91,11 @@ namespace CheckAddIn
                 XmlNode xn = doc.SelectSingleNode("root");
                 XmlElement childElement = doc.CreateElement("WhiteList");
                 XmlElement URLElement = doc.CreateElement("URL");
-                URLElement.InnerText = "xxx.com";
+                URLElement.InnerText = " ";
                 childElement.AppendChild(URLElement);
                 rootElement.AppendChild(childElement);
                 doc.Save(filename);
-                XMLDAL.Insert("yyy.com");
+                XMLDAL.Insert(" ");
             }
             XmlDocument readxml = new XmlDocument();
             readxml.Load(filename);
