@@ -44,7 +44,17 @@ namespace CheckAddIn
             {
                 foreach (Outlook.Recipient recipient in recipients)
                 {
-                    string message = recipient.Address.ToString();
+	    Outlook.ExchangeUser exchangeUser=recipient.AddressEntry.GetExchangeUser();
+	    string message;
+	    if(exchangeUser!=null)
+	    {
+	        message=exchangeUser.PrimarySmtpAddress.ToString();
+	    }
+	    else
+	    {
+	        string message = recipient.Address.ToString();
+	    }
+                 
                     if (checkEmailAdd_XML(message)==false)
                     {
                         nowhitelist.Add(message);                
